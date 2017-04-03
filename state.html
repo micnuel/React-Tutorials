@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js">
+    </script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js">
+
+    </script>
+    <script src ="https://npmcdn.com/babel-core@5.8.38/browser.min.js">
+
+    </script>
+
+  </head>
+  <body>
+  <script type="text/babel">
+    class Clock extends React.Component{
+      constructor(props)
+      {
+        super(props);
+        const currentTime = new Date();
+        this.state = {
+          hours : currentTime.getHours(),
+          minutes : currentTime.getMinutes(),
+          seconds : currentTime.getSeconds(),
+          ampm : currentTime.getHours() >= 12 ? 'pm' : 'am'
+      };
+      this.setStartTimer();// Starting the timer
+    }
+    //Setting the timer
+    setStartTimer(){
+      setTimeout(this.updateClock.bind(this), 2000);
+    }
+
+    updateClock (){
+      const currentTime = new Date();
+      this.setState ({
+        hours : currentTime.getHours(),
+        minutes : currentTime.getMinutes(),
+        seconds : currentTime.getSeconds(),
+        ampm : currentTime.getHours() >= 12 ? 'pm' : 'am'
+
+    }, this.setStartTimer);
+    }
+      render(){
+        const {hours, minutes, seconds, ampm} = this.state;
+        return(
+          <div className="clock">
+            {
+              hours == 0 ? 12 : (hours > 12) ? hours - 12 : hours
+            }:{
+               (minutes < 10 ? `0${minutes}`: minutes)
+            }:{
+              (seconds < 10 ? `0${seconds}` : seconds)
+            } {ampm}
+          </div>
+        )
+
+      }
+
+    }
+    var b = document.querySelector('body');
+    ReactDOM.render(<Clock/>,b)
+
+    </script>
+  </body>
+</html>
